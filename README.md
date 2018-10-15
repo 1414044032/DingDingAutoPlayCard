@@ -21,11 +21,11 @@ windows版本adb下载地址:
 ![pythonshow](https://github.com/1414044032/imgs/blob/master/python.png)
 
 ## 3.获取屏幕尺寸，设置模拟点击位置：
-### 滑动解锁手机。如果手机屏幕自动点亮后不需要解锁。可以在文件中删除滑动解锁的部分。
+滑动解锁手机。如果手机屏幕自动点亮后不需要解锁。可以在文件中删除滑动解锁的部分。
 ----
-![screen1](https://github.com/1414044032/imgs/blob/master/screen1.png)
 ### 像素点的获取：
 ----
+![screen1](https://github.com/1414044032/imgs/blob/master/screen1.png)
 ![screen2](https://github.com/1414044032/imgs/blob/master/screen2.png)
 ### 画图工具打开保存到电脑的设备截图：
 ----
@@ -39,11 +39,14 @@ windows版本adb下载地址:
 
 ## 5.运行：
 ### 定位到文件所在目录。然后执行命令“python DingDing_Secend.py”
----
+----
 运行： 'python DingDing_Secend.py'
+----
 ![screen7](https://github.com/1414044032/imgs/blob/master/screen7.png)
 
 ## 6.参考资料：
 ----
 [https://github.com/Skyexu/TopSup](https://github.com/Skyexu/TopSup)
+----
 [https://github.com/mzlogin/awesome-adb](https://github.com/mzlogin/awesome-adb)
+----
