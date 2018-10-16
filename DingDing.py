@@ -3,13 +3,11 @@ import subprocess
 import time
 import sched
 import datetime
-from io import BytesIO
 import random
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
-from email.utils import formataddr
 
 scheduler = sched.scheduler(time.time,time.sleep)
 # 上班时间（提前1个小时）也就是8点后打卡，不超过9点
@@ -20,8 +18,8 @@ back_hour = 18
 directory = r"D:\Program Files (x86)\ClockworkMod\Universal Adb Driver"
 # QQ 邮箱相关
 sender = '1414044032@qq.com'  # 发件人邮箱账号
-psw = '你的授权码'  # qq邮箱的话是要生成的授权码，其他邮箱类似
-receive = '1141962746@qq.com'  # 收件人邮箱账号，我这边发送给自己
+psw = 'ovtqlehccdwefijf'  # qq邮箱的话是要生成的授权码，其他邮箱类似
+receive = '1414044032@qq.com'  # 收件人邮箱账号，我这边发送给自己
 # 截屏图片路径（路径不要带空格，为了保存手机发送过来的截屏图片，并保存到邮件中,）
 screen_dir = "D:\\screen.png"
 
@@ -64,7 +62,7 @@ class dingding:
         # 点亮屏幕
         self.adbpower = '"%s\\adb" shell input keyevent 26' % directory
         # 滑屏解锁
-        self.adbclear = '"%s\\adb" shell input swipe 300 1000 300 500 500' % directory
+        self.adbclear = '"%s\\adb" shell input swipe 300 1000 300 500 ' % directory
         # 启动钉钉应用
         self.adbopen_dingding = '"%s\\adb" shell monkey -p com.alibaba.android.rimet -c android.intent.category.LAUNCHER 1' %directory
         # 关闭钉钉
@@ -107,9 +105,9 @@ class dingding:
 
     # 上班(极速打卡)
     @with_open_close_dingding
-    def goto_work(self):
+    def goto_work(self,minute):
         self.screencap()
-        self.sendEmail()
+        self.sendEmail(minute)
         print("打卡成功")
 
     # 打开打卡界面
@@ -125,14 +123,14 @@ class dingding:
 
     # 下班
     @with_open_close_dingding
-    def after_work(self):
+    def after_work(self,minute):
         operation_list = [self.adbclick_playcard]
         for operation in operation_list:
             process = subprocess.Popen(operation, shell=False,stdout=subprocess.PIPE)
             process.wait()
             time.sleep(3)
         self.screencap()
-        self.sendEmail()
+        self.sendEmail(minute)
         print("afterwork playcard success")
 
     # 截屏>> 发送到电脑 >> 删除手机中保存的截屏
@@ -144,16 +142,16 @@ class dingding:
         print("screencap to computer success")
 
     # 发送邮件（QQ邮箱）
-    def sendEmail(self):
+    def sendEmail(self,minute):
         """
         qq邮箱 需要先登录网页版，开启SMTP服务。获取授权码，
         :return:
         """
         now_time = datetime.datetime.now().strftime("%H:%M:%S")
         message = MIMEMultipart('related')
-        subject = now_time + '打卡'
+        subject = now_time + '打卡'+'下次打卡随机分钟：'+minute
         message['Subject'] = subject
-        message['From'] = "最疼媳妇的老王"
+        message['From'] = "日常打卡"
         message['To'] = receive
         content = MIMEText('<html><body><img src="cid:imageid" alt="imageid"></body></html>', 'html', 'utf-8')
         message.attach(content)
@@ -175,7 +173,7 @@ class dingding:
 
 # 随机打卡时间段
 def random_minute():
-    return random.randint(30,55)
+    return random.randint(30,50)
 
 # 包装循环函数，传入随机打卡时间点
 def incode_loop(func,minute):
@@ -185,7 +183,7 @@ def incode_loop(func,minute):
     :param minute: 随机分钟数
     :return: None
     """
-    if datetime.datetime.now().hour <18:
+    if datetime.datetime.now().hour >9 and datetime.datetime.now().hour <18:
         hourtype = 1
         print("下次将在", str(back_hour), ":", str(minute), "打卡")
     else:
@@ -208,11 +206,13 @@ def start_loop(hourtype,minute):
     now_minute = now_time.minute
     # 上班，不是周末（双休），小时对应，随机分钟对应
     if hourtype == 2 and now_hour == go_hour and now_minute == minute and is_weekend():
-        dingding(directory).goto_work()
-        scheduler.enter(0,0,incode_loop,(start_loop,random_minute(),))
+        random_time = random_minute()
+        dingding(directory).goto_work(random_time)
+        scheduler.enter(0,0,incode_loop,(start_loop,random_time,))
     if hourtype == 1 and now_hour == back_hour and now_minute == minute and is_weekend():
-        dingding(directory).after_work()
-        scheduler.enter(0, 0, incode_loop,(start_loop,random_minute(),))
+        random_time = random_minute()
+        dingding(directory).after_work(random_time)
+        scheduler.enter(0, 0, incode_loop,(start_loop,random_time,))
     else:
         print(now_hour,':',now_minute)
         scheduler.enter(60,0,start_loop,(hourtype,minute,))
