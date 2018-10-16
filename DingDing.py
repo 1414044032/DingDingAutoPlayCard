@@ -149,7 +149,7 @@ class dingding:
         """
         now_time = datetime.datetime.now().strftime("%H:%M:%S")
         message = MIMEMultipart('related')
-        subject = now_time + '打卡'+'下次打卡随机分钟：'+minute
+        subject = now_time + '打卡'+'下次打卡随机分钟：'+str(minute)
         message['Subject'] = subject
         message['From'] = "日常打卡"
         message['To'] = receive
