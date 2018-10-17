@@ -208,7 +208,7 @@ def start_loop(hourtype,minute):
     if hourtype == 2 and now_hour == go_hour and now_minute == minute and is_weekend():
         random_time = random_minute()
         dingding(directory).goto_work(random_time)
-        scheduler.enter(0,0,incode_loop,(start_loop,random_time,))
+        scheduler.enter(360,0,incode_loop,(start_loop,random_time,))
     if hourtype == 1 and now_hour == back_hour and now_minute == minute and is_weekend():
         random_time = random_minute()
         dingding(directory).after_work(random_time)
