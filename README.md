@@ -1,6 +1,6 @@
 # DingDingAutoPlayCard
 ----
-钉钉自动上下班打卡辅助，基于windows10 ,Python3.6，adb，安卓手机实现。需要安装adb 和python运行环境。
+钉钉自动上下班打卡辅助，基于windows10 ,Python3.6，adb，安卓手机实现。需要安装adb 和python运行环境。原理：通过python逻辑化的调度cmd来执行adb来操作安卓手机。
 ## 效果展示：
 ----
 ![daka1](https://github.com/1414044032/imgs/blob/master/daka1.png)![daka2](https://github.com/1414044032/imgs/blob/master/daka2.png)
