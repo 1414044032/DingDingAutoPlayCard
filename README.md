@@ -34,6 +34,7 @@ windows版本adb下载地址:
 ![screen5](https://github.com/1414044032/imgs/blob/master/screen5.png)
 
 ## 4.修改文件参数：
+新增配置文件，直接修改配置文件即可
 ----
 ![screen6](https://github.com/1414044032/imgs/blob/master/screen6.png)
 
