@@ -8,21 +8,19 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
+import configparser
 
+
+config = configparser.ConfigParser(allow_no_value=False)
+config.read("dingding.cfg")
 scheduler = sched.scheduler(time.time,time.sleep)
-# 上班时间（提前1个小时）也就是8点后打卡，不超过9点
-go_hour = 8
-# 下班时间 18 -19点中间打卡，不超过19点
-back_hour = 18
-# adb安装目录
-directory = r"D:\Program Files (x86)\ClockworkMod\Universal Adb Driver"
-# QQ 邮箱相关
-sender = '1414044032@qq.com'  # 发件人邮箱账号
-psw = 'your'  # qq邮箱的话是要生成的授权码，其他邮箱类似
-receive = 'your'  # 收件人邮箱账号，我这边发送给自己
-# 截屏图片路径（路径不要带空格，为了保存手机发送过来的截屏图片，并保存到邮件中,）
-screen_dir = "D:\\screen.png"
-
+go_hour = int(config.get("time","go_hour"))
+back_hour = int(config.get("time","back_hour"))
+directory = config.get("ADB","directory")
+sender = config.get("email","sender")
+psw = config.get("email","psw")
+receive = config.get("email","receive")
+screen_dir = config.get("screen","screen_dir")
 
 # 打开钉钉，关闭钉钉封装为一个妆饰器函数
 def with_open_close_dingding(func):
@@ -57,12 +55,11 @@ def with_open_close_dingding(func):
 class dingding:
 
     # 初始化，设置adb目录
-    def __init__(self,directory):
-        self.directory = directory
+    def __init__(self):
         # 点亮屏幕
         self.adbpower = '"%s\\adb" shell input keyevent 26' % directory
         # 滑屏解锁
-        self.adbclear = '"%s\\adb" shell input swipe 300 1000 300 500 ' % directory
+        self.adbclear = '"%s\\adb" shell input swipe %s' % (directory,config.get("position","light_position"))
         # 启动钉钉应用
         self.adbopen_dingding = '"%s\\adb" shell monkey -p com.alibaba.android.rimet -c android.intent.category.LAUNCHER 1' %directory
         # 关闭钉钉
@@ -70,11 +67,11 @@ class dingding:
         # 返回桌面
         self.adbback_index = '"%s\\adb" shell input keyevent 3' % directory
         # 点击工作
-        self.adbselect_work = '"%s\\adb" shell input tap 359 1226' % directory
+        self.adbselect_work = '"%s\\adb" shell input tap %s' % (directory,config.get("position","work_position"))
         # 点击考勤打卡
-        self.adbselect_playcard = '"%s\\adb" shell input tap 450 893' % directory
+        self.adbselect_playcard = '"%s\\adb" shell input tap %s' % (directory,config.get("position","check_position"))
         # 点击下班打卡
-        self.adbclick_playcard = '"%s\\adb" shell input tap 365 905' % directory
+        self.adbclick_playcard = '"%s\\adb" shell input tap %s' % (directory,config.get("position","play_position"))
         # 设备截屏保存到sdcard
         self.adbscreencap = '"%s\\adb" shell screencap -p sdcard/screen.png' % directory
         # 传送到计算机
