@@ -18,8 +18,8 @@ back_hour = 18
 directory = r"D:\Program Files (x86)\ClockworkMod\Universal Adb Driver"
 # QQ 邮箱相关
 sender = '1414044032@qq.com'  # 发件人邮箱账号
-psw = 'ovtqlehccdwefijf'  # qq邮箱的话是要生成的授权码，其他邮箱类似
-receive = '1141962746@qq.com'  # 收件人邮箱账号，我这边发送给自己
+psw = 'your'  # qq邮箱的话是要生成的授权码，其他邮箱类似
+receive = 'your'  # 收件人邮箱账号，我这边发送给自己
 # 截屏图片路径（路径不要带空格，为了保存手机发送过来的截屏图片，并保存到邮件中,）
 screen_dir = "D:\\screen.png"
 
@@ -185,7 +185,7 @@ def incode_loop(func,minute):
     """
     print("邮件接收地址"+receive)
     # 判断时间当超过上班时间则打下班卡。否则则打上班卡。
-    if datetime.datetime.now().hour >=go_hour+1 and datetime.datetime.now().hour <back_hour:
+    if datetime.datetime.now().hour >=go_hour and datetime.datetime.now().hour <back_hour:
         # 用来分类上班和下班。作为参数传入任务调度
         hourtype = 1
         print("下次将在", str(back_hour), ":", str(minute), "打卡")
