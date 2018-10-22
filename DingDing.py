@@ -55,7 +55,8 @@ def with_open_close_dingding(func):
 class dingding:
 
     # 初始化，设置adb目录
-    def __init__(self):
+    def __init__(self,directory):
+        self.directory = directory
         # 点亮屏幕
         self.adbpower = '"%s\\adb" shell input keyevent 26' % directory
         # 滑屏解锁
@@ -231,10 +232,10 @@ def is_weekend():
 
 if __name__ == "__main__":
     # ======formal
-    scheduler.enter(0,0,incode_loop,(start_loop,random_minute(),))
-    scheduler.run()
+    #scheduler.enter(0,0,incode_loop,(start_loop,random_minute(),))
+    #scheduler.run()
     # ====test
-    # dingding  = dingding(directory)
-    # dingding.goto_work()
+    dingding  = dingding(directory)
+    dingding.goto_work(12)
     # ==== weekend
     # print(is_weekend())
