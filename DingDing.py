@@ -232,10 +232,10 @@ def is_weekend():
 
 if __name__ == "__main__":
     # ======formal
-    #scheduler.enter(0,0,incode_loop,(start_loop,random_minute(),))
-    #scheduler.run()
+    scheduler.enter(0,0,incode_loop,(start_loop,random_minute(),))
+    scheduler.run()
     # ====test
-    dingding  = dingding(directory)
-    dingding.goto_work(12)
+    # dingding  = dingding(directory)
+    # dingding.goto_work(12)
     # ==== weekend
     # print(is_weekend())
