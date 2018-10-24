@@ -11,6 +11,7 @@ twilio注册地址[https://www.twilio.com](https://www.twilio.com)
 
 ## 效果展示：
 ----
+![message](https://github.com/1414044032/imgs/blob/master/message1.png)
 ![daka](https://github.com/1414044032/imgs/blob/master/data.png)
 ![daka1](https://github.com/1414044032/imgs/blob/master/daka1.png)![daka2](https://github.com/1414044032/imgs/blob/master/daka2.png)
 ## 1.安装 ADB：
