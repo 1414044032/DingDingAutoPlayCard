@@ -1,9 +1,12 @@
 # DingDingAutoPlayCard
 ----
 钉钉自动上下班打卡辅助
+----
 1版本实现自动打卡，邮件提醒。
 2版本新增短信提醒。通过百度OCR进行文字识别，twilio发送短信，两个版本单独运行。(使用twilio的免费短信实现)
+----
 twilio注册地址[https://www.twilio.com](https://www.twilio.com)
+----
 基于windows10 ,Python3.6，adb，安卓手机实现。需要安装adb 和python运行环境。原理：通过python逻辑化的调度cmd来执行adb来操作安卓手机。
 
 ## 效果展示：
