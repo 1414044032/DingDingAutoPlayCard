@@ -13,7 +13,7 @@ twilio注册地址[https://www.twilio.com](https://www.twilio.com)
 ----
 ![message](https://github.com/1414044032/imgs/blob/master/message1.png)
 ![daka](https://github.com/1414044032/imgs/blob/master/data.png)
-![daka1](https://github.com/1414044032/imgs/blob/master/daka1.png)![daka2](https://github.com/1414044032/imgs/blob/master/daka2.png)
+![daka1](https://github.com/1414044032/imgs/blob/master/daka3.png)![daka2](https://github.com/1414044032/imgs/blob/master/daka4.png)
 ## 1.安装 ADB：
 ----
 windows版本adb下载地址:
