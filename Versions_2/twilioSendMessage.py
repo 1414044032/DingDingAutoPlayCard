@@ -28,8 +28,8 @@ class SendMessage:
     # 百度文本识别
     def baidu_img_str(self,image):
         APP_ID = "11660670"
-        API_KEY = "RG8QR4q9pgow4qyY3FhUFRFD"
-        SECRET_KEY = "1MKLlb2GvvKEAD8Hjo9M8PYwdiQL8EyU"
+        API_KEY = "RG8QR4q9qyY3FhUFRFD"
+        SECRET_KEY = "1MKLlo9M8PYwdiQL8EyU"
         client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
         img_byte_arr = io.BytesIO()
         image.save(img_byte_arr, format='PNG')
