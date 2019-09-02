@@ -38,6 +38,9 @@ windows版本adb下载地址:
 ![pythonshow](https://github.com/1414044032/imgs/blob/master/python.png)
 
 ## 3.获取屏幕尺寸，设置模拟点击位置：
+热心网友提供的简洁方式：可以打开"开发者设置"的输入找到"指针位置" 即可得到点击XY坐标轴。
+----
+![screen1](https://user-images.githubusercontent.com/40572216/64086339-31f6dc00-cd6a-11e9-9ccd-7ba0ba7624f1.png)
 滑动解锁手机。如果手机屏幕自动点亮后不需要解锁。可以在文件中删除滑动解锁的部分。
 ----
 ### 像素点的获取：
