@@ -30,7 +30,7 @@ windows版本adb下载地址:
 ![1.添加adb到path](https://github.com/1414044032/imgs/blob/master/adbinstall.png)
 ![2.添加adb到path](https://github.com/1414044032/imgs/blob/master/adbpath.png)
 ![3.添加adb到path](https://github.com/1414044032/imgs/blob/master/path1.png)
-### 手机需要打开开发者选项，通过USB数据线连接电脑。
+### 手机需要打开开发者选项，通过USB数据线连接电脑(可通过wifi来连接手机用adb)。
 ### 打开CMD命令行，输入“adb devices”,能成功显示手机信息即可。
 ![cmdshow](https://github.com/1414044032/imgs/blob/master/adbcmd.png)
 
