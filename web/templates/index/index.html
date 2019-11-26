@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>配置页面</title>
+    <!--    <link href="%% static_url('/index.css') %%" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="%% static_url('/vue.js') %%"></script>
+    <script src="%% static_url('/index.js') %%"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <el-steps :active="active" finish-status="success">
+        <el-step title="步骤 1" description="测试ADB连接"></el-step>
+        <el-step title="步骤 2" description="配置打卡信息"></el-step>
+        <el-step title="步骤 3" description="复核填写信息"></el-step>
+    </el-steps>
+    <div v-show="active === 0">
+        <div>
+            <el-alert
+                    title="点击连接前的准备工作"
+                    type="info"
+                    description="能通过wifi adb连接到手机，参考地址：https://github.com/mzlogin/awesome-adb#%E6%97%A0%E7%BA%BF%E8%BF%9E%E6%8E%A5%E6%97%A0%E9%9C%80%E5%80%9F%E5%8A%A9-usb-%E7%BA%BF"
+                    show-icon>
+            </el-alert>
+        </div>
+        <el-input v-model="form.input" placeholder="请输入ADB根目录例如：“D:\Program Files (x86)”"></el-input>
+        <div>
+            <el-button style="margin-top: 12px;" @click="testAdb">测试adb</el-button>
+        </div>
+        <div>
+            <el-tag type="warning">下面的标签显示成功手机信息表示成功连接手机</el-tag>
+        </div>
+        <el-tag>{{result}}</el-tag>
+        <el-button style="margin-top: 12px;" @click="next">下一步</el-button>
+    </div>
+    <div v-show="active === 1">
+        <el-form ref="form" :model="form" label-width="150px">
+            <el-form-item label="上班时间（时）">
+                <el-input v-model="form.go_hour"></el-input>
+            </el-form-item>
+            <el-form-item label="下班时间（时）">
+                <el-input v-model="form.back_hour"></el-input>
+            </el-form-item>
+            <el-form-item label="发送打卡信息邮箱（QQ邮箱）">
+                <el-input v-model="form.sender"></el-input>
+            </el-form-item>
+            <el-form-item label="授权码（QQ邮箱）">
+                <el-input v-model="form.psw"></el-input>
+            </el-form-item>
+            <el-form-item label="接受打卡信息邮箱">
+                <el-input v-model="form.receive"></el-input>
+            </el-form-item>
+            <el-form-item label="打卡截图保存根目录">
+                <el-input v-model="form.screen_dir"></el-input>
+            </el-form-item>
+        </el-form>
+        <el-button style="margin-top: 12px;" @click="perv">上一步</el-button>
+        <el-button style="margin-top: 12px;" @click="next">下一步</el-button>
+        <!--<img id="monitor_map" src="https://cn.bing.com/th?id=OIP.bYXarUZFdizT5ighwiAB8QHaEK&pid=Api&rs=1" class="col-md-12"
+             style="margin:0;padding: 0" @click="mapOnClick()"/>-->
+    </div>
+    <div v-show="active === 2">
+        <div>
+            <el-alert
+                    title="该步奏必读事项"
+                    type="warning"
+                    description="首先点击获取图像获取各个界面的图像，之后点击图像获取图像的坐标点填入表单，（图片获取到后可以点击图片，会弹出点击位置的坐标，复制后粘贴到对应点位框）"
+                    show-icon>
+            </el-alert>
+        </div>
+        <div>
+            <el-button style="margin-top: 12px;" @click="getimg">点击获取图像</el-button>
+        </div>
+        <el-form ref="form" :model="form" label-width="150px">
+            <el-form-item label="点击工作按钮位置">
+                <el-input v-model="form.work_position"></el-input>
+            </el-form-item>
+            <el-form-item label="点击考勤打卡位置">
+                <el-input v-model="form.check_position"></el-input>
+            </el-form-item>
+            <el-form-item label="下班点击位置">
+                <el-input v-model="form.play_position"></el-input>
+            </el-form-item>
+        </el-form>
+        <div><img id="monitor_map" :src="imgbase64" class="col-md-12"
+                  style="margin:0;padding: 0" @click="mapOnClick()"/></div>
+        <el-button style="margin-top: 12px;" @click="perv">上一步</el-button>
+        <el-button style="margin-top: 12px;" @click="next">下一步</el-button>
+    </div>
+    <div v-show="active === 3">
+        <el-alert
+                title="复核步奏"
+                type="success"
+                description="查看表单各项信息是否正确"
+                show-icon>
+        </el-alert>
+        <el-form ref="form" :model="form" label-width="150px">
+            <el-form-item label="上班时间（时）">
+                <el-input v-model="form.go_hour"></el-input>
+            </el-form-item>
+            <el-form-item label="下班时间（时）">
+                <el-input v-model="form.back_hour"></el-input>
+            </el-form-item>
+            <el-form-item label="发送打卡信息邮箱（QQ邮箱）">
+                <el-input v-model="form.sender"></el-input>
+            </el-form-item>
+            <el-form-item label="授权码（QQ邮箱）">
+                <el-input v-model="form.psw"></el-input>
+            </el-form-item>
+            <el-form-item label="接受打卡信息邮箱">
+                <el-input v-model="form.receive"></el-input>
+            </el-form-item>
+            <el-form-item label="打卡截图保存根目录">
+                <el-input v-model="form.screen_dir"></el-input>
+            </el-form-item>
+            <el-form-item label="点击工作按钮位置">
+                <el-input v-model="form.work_position"></el-input>
+            </el-form-item>
+            <el-form-item label="点击考勤打卡位置">
+                <el-input v-model="form.check_position"></el-input>
+            </el-form-item>
+            <el-form-item label="下班点击位置">
+                <el-input v-model="form.play_position"></el-input>
+            </el-form-item>
+        </el-form>
+        <el-button style="margin-top: 12px;" @click="perv">上一步</el-button>
+        <el-button style="margin-top: 12px;" @click="create">提交</el-button>
+    </div>
+</div>
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#app',
+        data: {
+            active: 0,
+            result: "adb测试结果",
+            form: {
+                go_hour: "",
+                back_hour: "",
+                sender: "",
+                psw: "",
+                receive: "",
+                screen_dir: "",
+                work_position: "",
+                check_position: "",
+                play_position: "",
+                input:"",
+            },
+            imgbase64: "https://cn.bing.com/th?id=OIP.bYXarUZFdizT5ighwiAB8QHaEK&pid=Api&rs=1",
+        },
+        mounted: function () {
+            console.log("123")
+        },
+        methods: {
+            mapOnClick: function (e) {
+                e = e || window.event;
+                console.log(e)
+                var imgId = '#' + $(e.target).attr('id');
+                var currentWidth = $(imgId).width();
+                var currentHeight = $(imgId).height();
+                console.log(currentWidth)
+                console.log(currentHeight)
+                var offsetX = e.pageX - $(imgId).offset().left;
+                var offsetY = e.pageY - $(imgId).offset().top;
+                var x = offsetX / currentWidth;
+                var y = offsetY / currentHeight;
+                alert(parseInt(offsetX) + " " + parseInt(offsetY))
+            },
+            next() {
+                this.active++
+            },
+            perv() {
+                this.active--
+            },
+            testAdb() {
+                var _self = this;
+                $.ajax({
+                    url: "/testAdb?adbpath=" + this.form.input.trim(),
+                    success: function (result) {
+                        _self.result = result.name;
+                    }
+                });
+            },
+            getimg() {
+                var _self = this;
+                $.ajax({
+                    url: "/getimg?adbpath=" + this.form.input.trim() + "&screen_dir=" + this.form.screen_dir,
+                    success: function (result) {
+                        _self.imgbase64 = result.name;
+                    }
+                });
+            },
+            create(){
+                var _self = this;
+                console.log(this.form)
+                $.ajax({
+                    url: "/createseting",
+                    method:"post",
+                    data:this.form,
+                    success: function (result) {
+                        console.log(result)
+                    }
+                });
+            }
+        }
+
+    })
+</script>
+</body>
+</html>

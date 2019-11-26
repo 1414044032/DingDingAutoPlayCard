@@ -1,17 +1,29 @@
 # DingDingAutoPlayCard
 ----
 钉钉自动上下班打卡辅助
-（定时调度建议使用schedule模块提供的定时功能来触发打卡，本项目使用的是循环判断不再更新）
+2019-11-26 更新.（粗糙）
+
+新增web界面生成配置。
+
+移除多个版本，只保留打卡以及发送邮件。
+
+依赖：flask ,apscheduler,flask_script
+
+## 原理：
 ----
-新增adb安装文件，可能下载地址有的同学无法访问。
-----
-4版本基于版本2通过pyinstaller编译为exe文件，只保留了发送邮件功能,只需要安装adb后修改配置文件后，即可使用。不需要依赖python环境。
-----
-1版本实现自动打卡，邮件提醒。
-----
-2版本新增短信提醒。通过百度OCR进行文字识别，twilio发送短信，两个版本单独运行。(使用twilio的免费短信实现)
-----
-3版本新增打卡过程中录像保存到本地的功能，通过线程队列来实现。
+通过wifi adb连接到手机，参考地址：[https://github.com/mzlogin/awesome-adb#%E6%97%A0%E7%BA%BF%E8%BF%9E%E6%8E%A5%E6%97%A0%E9%9C%80%E5%80%9F%E5%8A%A9-usb-%E7%BA%BF](https://github.com/mzlogin/awesome-adb#%E6%97%A0%E7%BA%BF%E8%BF%9E%E6%8E%A5%E6%97%A0%E9%9C%80%E5%80%9F%E5%8A%A9-usb-%E7%BA%BF)
+原理还是通过adb来操作手机。简化了手工配置文件，现在运行web服务打开网页进行配置后，会在项目根目录生成配置文件
+
+##安装与使用：
+本机需要安装adb，项目根目录提供了windows安装程序。
+
+启动web服务：python manage.py runserver
+根据网页提示填写（在adb能成功连接手机的基础上）
+步奏都走完之后会在根目录生成setting.py,此时关闭web服务。
+
+启动打卡程序：python playCard.py。（以后只需要保证adb连接手机，运行这个程序即可，web程序只用来生成配置）
+
+后面的说明是老版本的说明可以参考
 ----
 twilio注册地址[https://www.twilio.com](https://www.twilio.com)
 ----
