@@ -14,14 +14,16 @@
 通过wifi adb连接到手机，参考地址：[https://github.com/mzlogin/awesome-adb#%E6%97%A0%E7%BA%BF%E8%BF%9E%E6%8E%A5%E6%97%A0%E9%9C%80%E5%80%9F%E5%8A%A9-usb-%E7%BA%BF](https://github.com/mzlogin/awesome-adb#%E6%97%A0%E7%BA%BF%E8%BF%9E%E6%8E%A5%E6%97%A0%E9%9C%80%E5%80%9F%E5%8A%A9-usb-%E7%BA%BF)
 原理还是通过adb来操作手机。简化了手工配置文件，现在运行web服务打开网页进行配置后，会在项目根目录生成配置文件
 
-##安装与使用：
-本机需要安装adb，项目根目录提供了windows安装程序。
+## 安装与使用
+本机需要安装adb，项目根目录提供了windows下adb安装包。
 
-启动web服务：python manage.py runserver
+## 启动web服务(生成配置文件)
+python manage.py runserver
 根据网页提示填写（在adb能成功连接手机的基础上）
 步奏都走完之后会在根目录生成setting.py,此时关闭web服务。
 
-启动打卡程序：python playCard.py。（以后只需要保证adb连接手机，运行这个程序即可，web程序只用来生成配置）
+## 启动打卡程序（真正打卡操作）
+python playCard.py。（以后只需要保证adb连接手机，运行这个程序即可，web程序只用来生成配置）
 
 后面的说明是老版本的说明可以参考
 ----
