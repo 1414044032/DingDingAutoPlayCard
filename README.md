@@ -2,12 +2,13 @@
 ----
 钉钉自动上下班打卡辅助
 2019-11-26 更新.（粗糙）
-
 新增web界面生成配置。
 
 移除多个版本，只保留打卡以及发送邮件。
 
 依赖：flask ,apscheduler,flask_script
+
+## 点击链接加入QQ群聊【adb，python，打卡，scrapy】：https://jq.qq.com/?_wv=1027&k=5nRUMwZR
 
 ## 原理：
 ----
