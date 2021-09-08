@@ -8,7 +8,6 @@
 
 依赖：flask ,apscheduler,flask_script
 
-## 点击链接加入QQ群聊【adb，python，打卡，scrapy】：https://jq.qq.com/?_wv=1027&k=5nRUMwZR
 
 ## 原理：
 ----
